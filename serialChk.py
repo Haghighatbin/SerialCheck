@@ -45,15 +45,15 @@ class serialChk:
     def sender(self, command):
         """This method encapsulates and encodes the commands to the STM32/ESP32-device."""
         print('waiting for invitation', end='')
+        
         while b'receiver: READY\n' not in self.operator.read_all():
             print('.', end='')
             time.sleep(1)
         print('\ninvited!')
-        _resp = self.operator.read_all()
-        while b'got it.\n' not in _resp:
+        
+        while b'got it.\n' not in self.operator.read_all():
             self.operator.write('go#'.encode())
             time.sleep(1)
-            _resp = self.operator.read_all()
 
         # __SERIAL SENDER__ 
         try:
